@@ -70,7 +70,7 @@ const HotCollections = () => {
               <div className="slick-slide-item" key={index}>
                 <div className="nft_coll">
                   <div className="nft_wrap">
-                    <Link to={`/item-details/${index}`}>
+                    <Link to={`/item-details/hot/${index}`}>
                       <img
                         src={collection.nftImage}
                         className="lazy img-fluid"
