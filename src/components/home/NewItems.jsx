@@ -23,6 +23,12 @@ const Countdown = ({ expiry }) => {
   const [timeLeft, setTimeLeft] = useState("");
 
   useEffect(() => {
+    // Add null check inside useEffect to follow React Hooks rules
+    if (!expiry) {
+      setTimeLeft("");
+      return;
+    }
+
     const updateCountdown = () => {
       const now = new Date().getTime();
       const distance = new Date(expiry).getTime() - now;
@@ -41,6 +47,9 @@ const Countdown = ({ expiry }) => {
 
     return () => clearInterval(interval);
   }, [expiry]);
+
+  // Don't render anything if no expiry
+  if (!expiry) return null;
 
   return <div className="de_countdown">{timeLeft}</div>;
 };
@@ -100,9 +109,9 @@ const NewItems = () => {
 
                   {loading ? (
                     <Skeleton width={100} height={20} />
-                  ) : item?.expiryDate ? (
-                    <Countdown expiry={item.expiryDate} />
-                  ) : null}
+                  ) : (
+                    <Countdown expiry={item?.expiryDate} />
+                  )}
 
                   <div className="nft__item_wrap">
                     <Link to={`/item-details/new/${index}`}>
